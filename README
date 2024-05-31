@@ -1,0 +1,13 @@
+## Installation
+
+```
+    yarn install
+
+```
+
+## Start
+
+```
+    docker compose up
+
+```

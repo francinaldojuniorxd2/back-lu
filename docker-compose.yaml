@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres
+    container_name: postgres-sql-db-lumi
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DATABASE}
+    volumes:
+      - ${HOME}/data/postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  app_api:
+    image: node:20.13.1-alpine3.20
+    container_name: app_api
+    restart: always
+    working_dir: /app
+    environment:
+      DATABASE: ${DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: postgres-sql-db-lumi
+      DB_PORT: 5432
+      DB_SSL: false
+      NODE_ENV: development
+    ports:
+      - 8001:8001
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    volumes:
+      - ${HOME}/dataApp/files:/files
+      - .:/app
+    command: yarn start:dev

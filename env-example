@@ -1,0 +1,7 @@
+DATABASE=database
+DB_USER=data-dev
+DB_PASSWORD=data-passwd
+DB_HOST=localhost
+DB_PORT=5432
+DB_SSL=false
+NODE_ENV=development

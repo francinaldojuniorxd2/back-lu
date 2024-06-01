@@ -1,15 +1,15 @@
 import express from 'express';
 import cors from 'cors';
 
-import routers from './routers/routers';
+import routers from './routers';
 
 const server = express();
+
 server.use(cors());
 server.options('*', cors());
 
 server.use(express.json());
 
-routers.forEach((route) => {
-  server.use(route.path, route.component);
-});
+server.use('/', routers);
+
 export default server;

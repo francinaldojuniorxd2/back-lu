@@ -9,7 +9,7 @@ const router = Router();
 
 const upload = multer({ storage });
 
-router.post('/', upload.single('file'), async (request, response) => {
+router.post('/upload', upload.single('file'), async (request, response) => {
   const fileName = request?.file?.filename;
 
   if (!fileName)

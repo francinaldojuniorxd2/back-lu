@@ -1,7 +1,7 @@
 import { Router } from 'express';
 export const router = Router();
 
-router.get('/:filename', (request, response) => {
+router.get('/files/:filename', (request, response) => {
   response.header(
     `Content-Disposition: attachment; filename=${request.params.filename}`,
   );

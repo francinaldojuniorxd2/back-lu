@@ -2,6 +2,8 @@ import { Sequelize } from 'sequelize-typescript';
 
 import { configuration } from '../config/configuration';
 import models from './models';
+import Settings from './models/settings.model';
+import { pdfExtractDataSettings } from './settings';
 
 export const sequelize = new Sequelize(
   configuration.db.database,
@@ -27,6 +29,17 @@ export const sequelizeInit = async () => {
     try {
       await sequelize.sync({ alter: true });
       console.log('Connection has been established successfully development.');
+      const pdfExtract = await Settings.findOne({
+        where: { name: 'pdfExtract' },
+      });
+      if (!pdfExtract?.dataValues.id) {
+        const settings = new Settings({
+          name: 'pdfExtract',
+          value: pdfExtractDataSettings,
+        });
+
+        await settings.save();
+      }
     } catch (error) {
       console.error('Unable to connect to the database:', error);
     }

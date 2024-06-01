@@ -7,7 +7,7 @@ import File from '../db/models/file.model';
 
 const router = Router();
 
-router.get('/:numClientId', async (request, response) => {
+router.get('/invoice/:numClientId', async (request, response) => {
   try {
     const respoInvoice = await sequelize.query(
       `SELECT DISTINCT i.num_client FROM invoice as i WHERE cast (i.num_client as text) like '%${request.params.numClientId}%' limit 10`,
@@ -24,7 +24,7 @@ router.get('/:numClientId', async (request, response) => {
   }
 });
 
-router.get('/dashboard/:numClientId', async (request, response) => {
+router.get('/invoice/dashboard/:numClientId', async (request, response) => {
   const data = await Invoice.findAll({
     order: [['date_number', 'DESC', 'NULLS LAST']],
     where: {
@@ -85,7 +85,7 @@ router.get('/dashboard/:numClientId', async (request, response) => {
   return response.send(mappInvoice);
 });
 
-router.get('/files/:numClientId', async (request, response) => {
+router.get('/invoice/files/:numClientId', async (request, response) => {
   const data = await Invoice.findAll({
     order: [['date_number', 'DESC', 'NULLS LAST']],
     where: {

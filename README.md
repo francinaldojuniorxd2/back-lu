@@ -11,6 +11,11 @@
     docker compose up
 
 ```
+## Test
+```
+    yarn test
+
+```
 
 ## Transpiler with babel
 
